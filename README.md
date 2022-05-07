@@ -1,5 +1,6 @@
 # vue3-ts-zhihu-columns
 
+Vue3 + TS 练习，仿知乎专栏项目。
 ## Project setup
 ```
 npm install
