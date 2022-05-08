@@ -16,9 +16,9 @@ export default function useClickOutside(
     if (elmentRef.value) {
       // 类型不吻合，这里需要 as 断言
       if (!elmentRef.value.contains(e.target as HTMLElement)) {
-        isClickOutside.value = false
-      } else {
         isClickOutside.value = true
+      } else {
+        isClickOutside.value = false
       }
     }
   }
