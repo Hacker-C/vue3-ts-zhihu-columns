@@ -19,7 +19,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.is-disabled >>> .dropdown-item {
+.is-disabled :deep(.dropdown-item) {
   color: #999;
   pointer-events: none;
   background-color: transparent;
