@@ -36,6 +36,7 @@ export default defineComponent({
   props: {
     list: {
       type: Array as PropType<ColumnProps[]>,
+      required: true,
     },
   },
   setup(props) {
