@@ -21,7 +21,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
+import useClickOutside from '../hooks/useClickOutside'
 
 export default defineComponent({
   name: 'DropDown',
@@ -40,26 +41,11 @@ export default defineComponent({
 
     // FEAT 点击下拉菜单以外的地方关闭
     const dropdownRef = ref<null | HTMLElement>(null)
-    const handler = (e: MouseEvent) => {
-      /*
-       * e.target 返回的是当前响应事件的元素
-       * 1、dropdown 节点包含 e.target，说明是在下拉菜单里面点的
-       * 2、dropdown 节点不含 e.target ，说明在外面点击的，就关闭下拉菜单
-       */
-      if (dropdownRef.value) {
-        if (
-          !dropdownRef.value.contains(e.target as HTMLElement) &&
-          isOpen.value
-        ) {
-          isOpen.value = false
-        }
+    const isClickOutside = useClickOutside(dropdownRef)
+    watch(isClickOutside, () => {
+      if (!isClickOutside.value && isOpen.value) {
+        isOpen.value = false
       }
-    }
-    onMounted(() => {
-      document.addEventListener('click', handler)
-    })
-    onUnmounted(() => {
-      document.removeEventListener('click', handler)
     })
 
     return {
