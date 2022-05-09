@@ -21,7 +21,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, PropType, ref } from 'vue'
+import { defineComponent, reactive, PropType, ref, onMounted } from 'vue'
+import { emitter } from './ValidateForm.vue'
 
 interface RuleProp {
   type: 'required' | 'email'
@@ -39,19 +40,28 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, context) {
-    const isClicked = ref(false)
-    const inputRef = reactive({
-      val: props.modelValue || '',
-      error: false,
-      message: '',
+    // FEAT 组件通信，传送各个表单字段是否验证通过
+    // 组件通信 mitt
+    onMounted(() => {
+      emitter.emit('form-item-created', validateInput)
     })
 
+    // FEAT 自定义组件实现 v-model
     const updateValue = (e: Event) => {
       const targetValue = (e.target as HTMLInputElement).value
       inputRef.val = targetValue
       context.emit('update:modelValue', targetValue)
     }
 
+    // FEAT 验证输入是否符合规则
+    // 判断是否点击过，只有点击过输入框了，才进行数据校验
+    const isClicked = ref(false)
+    const inputRef = reactive({
+      val: props.modelValue || '',
+      error: false,
+      message: '',
+    })
+    // onblur 触发校验
     const validateInput = () => {
       isClicked.value = true
       if (props.rules) {
@@ -71,7 +81,9 @@ export default defineComponent({
           return passed
         })
         inputRef.error = !allPassed
+        return allPassed
       }
+      return true
     }
 
     return {
