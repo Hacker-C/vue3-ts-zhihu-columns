@@ -11,6 +11,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import ClolumnItem from './ClolumnItem.vue'
+import { testData } from '@/testData'
 
 export interface ColumnProps {
   id: number
@@ -25,34 +26,7 @@ export default defineComponent({
     ClolumnItem,
   },
   setup() {
-    const testData: ColumnProps[] = [
-      {
-        id: 1,
-        title: '专栏测试test1',
-        description: '这是test1专栏，介绍vue3的的各种特性，非常有意思',
-        avatar:
-          'https://cdn.jsdelivr.net/gh/Hacker-C/Picture-Bed@main/icons/vuejs.png',
-      },
-      {
-        id: 2,
-        title: '专栏测试test1',
-        description: '这是test1专栏，介绍vue3的的各种特性，非常有意思',
-        avatar:
-          'https://cdn.jsdelivr.net/gh/Hacker-C/Picture-Bed@main/icons/vuejs.png',
-      },
-      {
-        id: 3,
-        title: '专栏测试test1',
-        description: '这是test1专栏，介绍vue3的的各种特性，非常有意思',
-        avatar:
-          'https://cdn.jsdelivr.net/gh/Hacker-C/Picture-Bed@main/icons/vuejs.png',
-      },
-      {
-        id: 4,
-        title: '专栏测试test1',
-        description: '这是test1专栏，介绍vue3的的各种特性，非常有意思',
-      },
-    ]
+    // TEST 测试数据
     const finalColumnList = computed(() => {
       return testData?.map(column => {
         if (!column.avatar) {
