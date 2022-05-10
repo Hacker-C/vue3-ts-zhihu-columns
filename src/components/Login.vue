@@ -26,12 +26,14 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
+import { useStore } from 'vuex'
+import { LOGIN } from '@/store/mutations-types'
 import ValidateInput, { RulesProp } from './validate/ValidateInput.vue'
 import ValidateForm from './validate/ValidateForm.vue'
 
 const emailRules: RulesProp = [
   { type: 'required', message: '邮箱地址不能为空！' },
-  { type: 'required', message: '邮箱地址格式错误！' },
+  { type: 'email', message: '邮箱地址格式错误！' },
 ]
 const passwordRules: RulesProp = [
   { type: 'required', message: '密码不能为空！' },
@@ -52,9 +54,12 @@ export default defineComponent({
 
     const emailValue = ref('')
 
+    const store = useStore()
     const inputRef = ref<unknown>()
     const onFormSubmit = (result: boolean) => {
-      console.log(result)
+      if (result) {
+        store.commit(LOGIN)
+      }
     }
 
     return {
