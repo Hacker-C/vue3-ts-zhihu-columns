@@ -6,7 +6,7 @@
       >
       <ul v-if="!user?.isLogin" class="list-inline mb-0">
         <li class="list-inline-item">
-          <a href="#" class="btn btn-outline-light">登录</a>
+          <a class="btn btn-outline-light" @click="login">登录</a>
         </li>
         <li class="list-inline-item">
           <a href="#" class="btn btn-outline-light">注册</a>
@@ -22,7 +22,7 @@
               <a class="dropdown-item" href="#">编辑资料</a>
             </DropdownItem>
             <DropdownItem>
-              <a class="dropdown-item" href="#">退出登录</a>
+              <a class="dropdown-item" href="#" @click="logout">退出登录</a>
             </DropdownItem>
           </Dropdown>
         </li>
@@ -33,14 +33,12 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { LOGOUT } from '@/store/mutations-types'
 import Dropdown from './daropdown/Dropdown.vue'
 import DropdownItem from './daropdown/DropdownItem.vue'
-
-export interface UserProps {
-  isLogin: boolean
-  username?: string
-  id?: number
-}
+import { UserProps } from '@/testData'
 
 export default defineComponent({
   name: 'GlobalHeader',
@@ -53,6 +51,20 @@ export default defineComponent({
   components: {
     Dropdown,
     DropdownItem,
+  },
+  setup() {
+    const router = useRouter()
+    const login = () => {
+      router.push('/login')
+    }
+    const store = useStore()
+    const logout = () => {
+      store.commit(LOGOUT)
+    }
+    return {
+      login,
+      logout,
+    }
   },
 })
 </script>

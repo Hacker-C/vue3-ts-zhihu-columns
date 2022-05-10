@@ -28,6 +28,7 @@
 import { defineComponent, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
 import { LOGIN } from '@/store/mutations-types'
+import { useRouter } from 'vue-router'
 import ValidateInput, { RulesProp } from './validate/ValidateInput.vue'
 import ValidateForm from './validate/ValidateForm.vue'
 
@@ -55,10 +56,12 @@ export default defineComponent({
     const emailValue = ref('')
 
     const store = useStore()
+    const router = useRouter()
     const inputRef = ref<unknown>()
     const onFormSubmit = (result: boolean) => {
       if (result) {
         store.commit(LOGIN)
+        router.push('/')
       }
     }
 

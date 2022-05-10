@@ -8,26 +8,23 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
+import { GlobalProps } from './store'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
+import GlobalHeader from './components/GlobalHeader.vue'
 
 import Footer from './components/Footer.vue'
-
-const curretnUser: UserProps = {
-  isLogin: true,
-  username: 'murphy chen',
-  id: 1,
-}
 
 export default defineComponent({
   name: 'App',
   components: {
-    // ColumnList,
     GlobalHeader,
     Footer,
   },
   setup() {
+    const store = useStore<GlobalProps>()
+    const curretnUser = store.state.user
     return {
       curretnUser,
     }

@@ -20,6 +20,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+import { GlobalProps } from '@/store'
 import { testData, testPosts } from '@/testData'
 import PostList from '@/components/post/PostList.vue'
 
@@ -31,9 +33,12 @@ export default defineComponent({
   setup() {
     // TODO 获取本专栏(传入columnId)的所有文章
     const route = useRoute()
+    const store = useStore<GlobalProps>()
     const currentColumnId = +route.params.id
     const column = testData.find(column => column.id === currentColumnId)
-    const postList = testPosts.filter(post => post.columnId === currentColumnId)
+    const postList = store.state.posts.filter(
+      post => post.columnId === currentColumnId,
+    )
     return {
       route,
       column,

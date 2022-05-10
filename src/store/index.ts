@@ -1,5 +1,14 @@
 import { createStore } from 'vuex'
-import { testData, testPosts, PostProps, ColumnProps } from '@/testData'
+import {
+  testData,
+  testPosts,
+  PostProps,
+  ColumnProps,
+  curretnUser,
+} from '@/testData'
+
+import { LOGIN } from './mutations-types'
+import mutations from './mutations'
 
 export interface UserProps {
   isLogin: boolean
@@ -18,8 +27,9 @@ const store = createStore<GlobalProps>({
   state: {
     columns: testData,
     posts: testPosts,
-    user: { isLogin: false },
+    user: curretnUser,
   },
+  mutations,
 })
 
 export default store

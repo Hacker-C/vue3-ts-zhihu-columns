@@ -10,8 +10,10 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
+
 import ClolumnItem from './ClolumnItem.vue'
-import { testData } from '@/testData'
+import { GlobalProps } from '@/store'
 
 export interface ColumnProps {
   id: number
@@ -27,6 +29,8 @@ export default defineComponent({
   },
   setup() {
     // TEST 测试数据
+    const store = useStore<GlobalProps>()
+    const testData = store.state.columns
     const finalColumnList = computed(() => {
       return testData?.map(column => {
         if (!column.avatar) {
