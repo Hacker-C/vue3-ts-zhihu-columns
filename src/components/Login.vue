@@ -16,10 +16,11 @@
         :rules="passwordRules"
         type="password"
         placeholder="请输入密码"
+        v-model="emailPassword"
       />
     </div>
     <template #submit>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="button" class="btn btn-primary">Submit</button>
     </template>
   </ValidateForm>
 </template>
@@ -54,6 +55,7 @@ export default defineComponent({
     })
 
     const emailValue = ref('')
+    const emailPassword = ref('')
 
     const store = useStore()
     const router = useRouter()
@@ -70,6 +72,7 @@ export default defineComponent({
       emailRules,
       passwordRules,
       emailValue,
+      emailPassword,
       onFormSubmit,
       inputRef,
     }

@@ -18,7 +18,7 @@ export interface PostProps {
 
 export interface UserProps {
   isLogin: boolean
-  username?: string
+  name?: string
   id?: number
 }
 
@@ -77,9 +77,3 @@ export const testPosts: PostProps[] = [
     columnId: 2,
   },
 ]
-
-export const curretnUser: UserProps = {
-  isLogin: false,
-  username: 'murphy chen',
-  id: 1,
-}
