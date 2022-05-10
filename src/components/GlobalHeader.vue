@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar navbar-dark bg-primary justify-content-between mb-4">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">知乎专栏</a>
+      <router-link class="navbar-brand" href="javascript:;" to="/"
+        >知乎专栏</router-link
+      >
       <ul v-if="!user?.isLogin" class="list-inline mb-0">
         <li class="list-inline-item">
           <a href="#" class="btn btn-outline-light">登录</a>
