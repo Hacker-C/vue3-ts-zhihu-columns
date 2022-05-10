@@ -1,9 +1,6 @@
 <template>
   <div class="container">
     <GlobalHeader :user="curretnUser" />
-    <router-link to="/home">主页</router-link>
-    <router-link to="/login">登录</router-link>
-    <router-link to="/column">专栏</router-link>
     <router-view></router-view>
     <Footer />
   </div>
