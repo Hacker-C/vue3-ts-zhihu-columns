@@ -28,7 +28,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
-import { LOGIN } from '@/store/mutations-types'
+import types from '@/store/mutations-types'
 import { useRouter } from 'vue-router'
 import ValidateInput, { RulesProp } from './validate/ValidateInput.vue'
 import ValidateForm from './validate/ValidateForm.vue'
@@ -62,7 +62,7 @@ export default defineComponent({
     const inputRef = ref<unknown>()
     const onFormSubmit = (result: boolean) => {
       if (result) {
-        store.commit(LOGIN)
+        store.commit(types.LOGIN)
         router.push('/')
       }
     }

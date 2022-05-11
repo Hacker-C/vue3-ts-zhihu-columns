@@ -1,10 +1,14 @@
-import { LOGIN, LOGOUT } from './mutations-types'
+import types from './mutations-types'
 import { GlobalProps } from './index'
+import { PostProps } from '@/testData'
 export default {
-  [LOGIN](state: GlobalProps): void {
+  [types.LOGIN](state: GlobalProps): void {
     state.user = { ...state.user, isLogin: true, name: 'murphychen' }
   },
-  [LOGOUT](state: GlobalProps): void {
+  [types.LOGOUT](state: GlobalProps): void {
     state.user.isLogin = false
+  },
+  [types.POST](state: GlobalProps, post: PostProps): void {
+    state.posts.push(post)
   },
 }

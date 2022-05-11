@@ -23,6 +23,7 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { GlobalProps } from '@/store'
 import PostList from '@/components/post/PostList.vue'
+import { computed } from '@vue/reactivity'
 
 export default defineComponent({
   name: 'ColumnDetail',
@@ -34,12 +35,9 @@ export default defineComponent({
     const route = useRoute()
     const store = useStore<GlobalProps>()
     const currentColumnId = +route.params.id
-    const column = store.state.columns.find(
-      column => column.id === currentColumnId,
-    )
-    const postList = store.state.posts.filter(
-      post => post.columnId === currentColumnId,
-    )
+    // TIP 使用计算数学获取 getters
+    const column = computed(() => store.getters.getColumnById(currentColumnId))
+    const postList = computed(() => store.getters.getPostById(currentColumnId))
     return {
       route,
       column,

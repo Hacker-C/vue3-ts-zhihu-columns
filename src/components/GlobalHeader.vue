@@ -15,10 +15,10 @@
       <ul v-else class="list-inline mb-0">
         <li class="list-inline-item">
           <Dropdown :title="`你好，${user.name}`">
-            <DropdownItem disabled>
-              <a class="dropdown-item" href="#">新建文章</a>
-            </DropdownItem>
             <DropdownItem>
+              <a class="dropdown-item" href="#" @click="post">新建文章</a>
+            </DropdownItem>
+            <DropdownItem disabled>
               <a class="dropdown-item" href="#">编辑资料</a>
             </DropdownItem>
             <DropdownItem>
@@ -35,7 +35,7 @@
 import { defineComponent, PropType } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import { LOGOUT } from '@/store/mutations-types'
+import types from '@/store/mutations-types'
 import Dropdown from './daropdown/Dropdown.vue'
 import DropdownItem from './daropdown/DropdownItem.vue'
 import { UserProps } from '@/testData'
@@ -59,11 +59,15 @@ export default defineComponent({
     }
     const store = useStore()
     const logout = () => {
-      store.commit(LOGOUT)
+      store.commit(types.LOGOUT)
+    }
+    const post = () => {
+      router.push('/post')
     }
     return {
       login,
       logout,
+      post,
     }
   },
 })
