@@ -18,12 +18,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed, onBeforeMount, ref, Ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { GlobalProps } from '@/store'
 import PostList from '@/components/post/PostList.vue'
-import { computed } from '@vue/reactivity'
+import { getColumnById } from '@/apis/columns'
+import { ColumnProps } from '@/testData'
 
 export default defineComponent({
   name: 'ColumnDetail',
@@ -35,8 +36,13 @@ export default defineComponent({
     const route = useRoute()
     const store = useStore<GlobalProps>()
     const currentColumnId = +route.params.id
+    const column: Ref<ColumnProps | null> = ref(null)
     // TIP 使用计算数学获取 getters
-    const column = computed(() => store.getters.getColumnById(currentColumnId))
+    onBeforeMount(async () => {
+      const result = await getColumnById(currentColumnId)
+      console.log(result)
+      column.value = result.data
+    })
     const postList = computed(() => store.getters.getPostById(currentColumnId))
     return {
       route,

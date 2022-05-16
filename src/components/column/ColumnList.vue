@@ -1,19 +1,14 @@
 <template>
   <div class="row">
-    <ClolumnItem
-      v-for="item in finalColumnList"
-      :column="item"
-      :key="item.id"
-    />
+    <ClolumnItem v-for="item in columns" :column="item" :key="item" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useStore } from 'vuex'
+import { defineComponent, computed, ref, onBeforeMount } from 'vue'
+import { getAllColumns, getColumnById } from '@/apis/columns'
 
 import ClolumnItem from './ClolumnItem.vue'
-import { GlobalProps } from '@/store'
 
 export interface ColumnProps {
   id: number
@@ -28,19 +23,15 @@ export default defineComponent({
     ClolumnItem,
   },
   setup() {
-    // TEST 测试数据
-    const store = useStore<GlobalProps>()
-    const testData = store.state.columns
-    const finalColumnList = computed(() => {
-      return testData?.map(column => {
-        if (!column.avatar) {
-          column.avatar = require('@/assets/column.png')
-        }
-        return column
-      })
+    // TODO 请求数据
+    const columns = ref([])
+    onBeforeMount(async () => {
+      const res = await getAllColumns()
+      columns.value = res.data
     })
+
     return {
-      finalColumnList,
+      columns,
     }
   },
 })
