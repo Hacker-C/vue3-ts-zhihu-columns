@@ -3,14 +3,14 @@
     <div class="column-info row mb-4 border-bottom pb-4 align-items-center">
       <div class="col-3 text-center">
         <img
-          :src="column?.avatar"
-          :alt="column?.title"
+          :src="column ? column.avatar : ''"
+          :alt="column ? column.title : ''"
           class="rounded-circle w-50 border"
         />
       </div>
       <div class="col-9">
-        <h3>{{ column?.title }}</h3>
-        <p class="text-muted">{{ column?.description }}</p>
+        <h3>{{ column && column.title }}</h3>
+        <p class="text-muted">{{ column && column.description }}</p>
       </div>
     </div>
   </div>
@@ -18,13 +18,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onBeforeMount, ref, Ref } from 'vue'
+import { defineComponent, onMounted, computed, ref, Ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { GlobalProps } from '@/store'
+import { GlobalProps } from '@/dtypes'
 import PostList from '@/components/post/PostList.vue'
 import { getColumnById } from '@/apis/columns'
-import { ColumnProps } from '@/testData'
+import { ColumnProps } from '@/dtypes'
+
+export interface PostProps {
+  id: number
+  title: string
+  content: string
+  image?: string
+  createdAt: string
+  columnId: number
+}
 
 export default defineComponent({
   name: 'ColumnDetail',
@@ -37,13 +46,15 @@ export default defineComponent({
     const store = useStore<GlobalProps>()
     const currentColumnId = +route.params.id
     const column: Ref<ColumnProps | null> = ref(null)
+    // const postList: Ref<PostProps[]> = ref([])
     // TIP 使用计算数学获取 getters
-    onBeforeMount(async () => {
-      const result = await getColumnById(currentColumnId)
-      console.log(result)
-      column.value = result.data
+    onMounted(async () => {
+      const columnResult = await getColumnById(currentColumnId)
+      column.value = columnResult.data
+      store.dispatch('getPosts', currentColumnId)
     })
-    const postList = computed(() => store.getters.getPostById(currentColumnId))
+    console.log(11)
+    const postList = computed(() => store.state.posts)
     return {
       route,
       column,
@@ -52,5 +63,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped></style>

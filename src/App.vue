@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
-import { GlobalProps } from './store'
+import { GlobalProps } from './dtypes'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import GlobalHeader from './components/GlobalHeader.vue'

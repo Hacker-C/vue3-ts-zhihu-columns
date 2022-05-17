@@ -32,7 +32,7 @@
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import { RulesProp } from '../validate/ValidateInput.vue'
-import { PostProps } from '@/testData'
+import { PostProps } from '@/dtypes'
 import ValidateForm from '../validate/ValidateForm.vue'
 import ValidateInput from '../validate/ValidateInput.vue'
 import router from '@/router'

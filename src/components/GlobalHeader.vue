@@ -4,7 +4,7 @@
       <router-link class="navbar-brand" href="javascript:;" to="/"
         >知乎专栏</router-link
       >
-      <ul v-if="!user?.isLogin" class="list-inline mb-0">
+      <ul v-if="!user.isLogin" class="list-inline mb-0">
         <li class="list-inline-item">
           <a class="btn btn-outline-light" @click="login">登录</a>
         </li>
@@ -38,7 +38,12 @@ import { useStore } from 'vuex'
 import types from '@/store/mutations-types'
 import Dropdown from './daropdown/Dropdown.vue'
 import DropdownItem from './daropdown/DropdownItem.vue'
-import { UserProps } from '@/testData'
+
+export interface UserProps {
+  isLogin: boolean
+  name?: string
+  id?: number
+}
 
 export default defineComponent({
   name: 'GlobalHeader',

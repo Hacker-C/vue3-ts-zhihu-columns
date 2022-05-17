@@ -47,10 +47,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta?.requireLogin && !store.state.user.isLogin) {
+  if (to.meta.requireLogin && !store.state.user.isLogin) {
     // 用户未登录，如果访问需要登录权限的路由，则跳转到登录界面
     next({ name: 'login' })
-  } else if (to.meta?.redirectAlreadyLogin && store.state.user.isLogin) {
+  } else if (to.meta.redirectAlreadyLogin && store.state.user.isLogin) {
     // 用户已登录，再次访问登录界面，就跳转到主页
     next('/')
   } else {

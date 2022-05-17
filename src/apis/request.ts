@@ -1,7 +1,7 @@
-import axios from 'axios'
-import { Method, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosPromise } from 'axios'
+import { AxiosRequestConfig } from 'axios'
 
-export default function request(option: AxiosRequestConfig) {
+export default function request(option: AxiosRequestConfig): AxiosPromise {
   const instance = axios.create({
     baseURL: 'http://localhost:3000/api',
     timeout: 5000,

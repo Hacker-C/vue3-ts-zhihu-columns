@@ -1,21 +1,22 @@
 <template>
   <div class="row">
-    <ClolumnItem v-for="item in columns" :column="item" :key="item" />
+    <ClolumnItem v-for="item in columns" :column="item" :key="item.id" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onBeforeMount } from 'vue'
-import { getAllColumns, getColumnById } from '@/apis/columns'
+import { defineComponent, ref, Ref, onBeforeMount } from 'vue'
+import { getAllColumns } from '@/apis/columns'
 
 import ClolumnItem from './ClolumnItem.vue'
+import { ColumnProps } from '@/dtypes'
 
-export interface ColumnProps {
-  id: number
-  title: string
-  avatar?: string
-  description: string
-}
+// export interface ColumnProps {
+//   id: number
+//   title: string
+//   avatar?: string
+//   description: string
+// }
 
 export default defineComponent({
   name: 'ColumnList',
@@ -24,12 +25,11 @@ export default defineComponent({
   },
   setup() {
     // TODO 请求数据
-    const columns = ref([])
+    const columns: Ref<ColumnProps[]> = ref([])
     onBeforeMount(async () => {
       const res = await getAllColumns()
       columns.value = res.data
     })
-
     return {
       columns,
     }

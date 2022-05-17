@@ -1,6 +1,6 @@
 import types from './mutations-types'
-import { GlobalProps } from './index'
-import { PostProps } from '@/testData'
+import { GlobalProps } from '@/dtypes'
+import { PostProps } from '@/dtypes'
 export default {
   [types.LOGIN](state: GlobalProps): void {
     state.user = { ...state.user, isLogin: true, name: 'murphychen' }
@@ -10,5 +10,8 @@ export default {
   },
   [types.POST](state: GlobalProps, post: PostProps): void {
     state.posts.push(post)
+  },
+  [types.INIT_POSTS](state: GlobalProps, posts: PostProps[]): void {
+    state.posts = posts
   },
 }

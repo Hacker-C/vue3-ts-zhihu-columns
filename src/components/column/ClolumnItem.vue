@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { ColumnProps } from './ColumnList.vue'
+import { ColumnProps } from '@/dtypes'
 
 export default defineComponent({
   name: 'ClolumnItem',
