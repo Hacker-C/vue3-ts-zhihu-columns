@@ -13,13 +13,15 @@ export default {
   ): Promise<void> {
     try {
       const posts = await getPostsById(coloumnId)
-      posts.data.forEach(obj => {
-        if (!obj.image || obj.image.length === 0) {
-          obj.image = require('@/assets/post.png')
-        }
-      })
+      posts.data &&
+        posts.data.forEach(obj => {
+          if (!obj.image || obj.image.length === 0) {
+            obj.image = require('@/assets/post.png')
+          }
+        })
       context.commit(types.INIT_POSTS, posts.data)
     } catch (e) {
+      console.log(e)
       console.log('404 not found')
     }
   },
