@@ -18,13 +18,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, computed, ref, Ref } from 'vue'
+import { defineComponent, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { GlobalProps } from '@/dtypes'
 import PostList from '@/components/post/PostList.vue'
-import { getColumnById } from '@/apis/columns'
-import { ColumnProps } from '@/dtypes'
 
 export interface PostProps {
   id: number
@@ -45,11 +43,10 @@ export default defineComponent({
     const route = useRoute()
     const store = useStore<GlobalProps>()
     const currentColumnId = +route.params.id
-    const column: Ref<ColumnProps | null> = ref(null)
+    // const column: Ref<ColumnProps | null> = ref(null)
+    const column = store.getters.getColumnById(currentColumnId)
     // TIP 使用计算数学获取 getters
     onMounted(async () => {
-      const columnResult = await getColumnById(currentColumnId)
-      column.value = columnResult.data
       store.dispatch('getPosts', currentColumnId)
     })
     const postList = computed(() => store.state.posts)

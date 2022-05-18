@@ -5,18 +5,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, onBeforeMount } from 'vue'
-import { getAllColumns } from '@/apis/columns'
-
+import { defineComponent, onMounted } from 'vue'
+import store from '@/store'
 import ClolumnItem from './ClolumnItem.vue'
-import { ColumnProps } from '@/dtypes'
-
-// export interface ColumnProps {
-//   id: number
-//   title: string
-//   avatar?: string
-//   description: string
-// }
+import { computed } from '@vue/reactivity'
 
 export default defineComponent({
   name: 'ColumnList',
@@ -24,17 +16,12 @@ export default defineComponent({
     ClolumnItem,
   },
   setup() {
-    // TODO 请求数据
-    const columns: Ref<ColumnProps[]> = ref([])
-    onBeforeMount(async () => {
-      const res = await getAllColumns()
-      res.data.forEach(obj => {
-        if (!obj.avatar || obj.avatar?.length === 0) {
-          obj.avatar = require('@/assets/column.png')
-        }
-      })
-      columns.value = res.data
+    // FEAT 分发 action ，触发网络请求
+    onMounted(() => {
+      store.dispatch('getAllColumns')
     })
+    // TIP 从 state 中获取数据
+    const columns = computed(() => store.state.columns)
     return {
       columns,
     }

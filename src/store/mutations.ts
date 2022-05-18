@@ -1,6 +1,6 @@
 import types from './mutations-types'
 import { GlobalProps } from './index'
-import { PostProps } from '@/dtypes'
+import { ColumnProps, PostProps } from '@/dtypes'
 export default {
   [types.LOGIN](state: GlobalProps): void {
     state.user = { ...state.user, isLogin: true, name: 'murphychen' }
@@ -16,5 +16,11 @@ export default {
   },
   [types.ADD_LOADING](state: GlobalProps, v: number): void {
     if (state.progressValue <= 100) state.progressValue += v
+  },
+  [types.GET_COLUMNS](state: GlobalProps, columns: ColumnProps[]): void {
+    state.columns = columns
+  },
+  [types.GET_POSTS](state: GlobalProps, posts: PostProps[]): void {
+    state.posts = posts
   },
 }

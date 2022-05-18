@@ -10,4 +10,12 @@ const getPostsById = async (coloumnId: number): R<PostProps[]> => {
   return results
 }
 
-export { getPostsById }
+const getAllPosts = async (): R<PostProps[]> => {
+  const posts = await request({
+    url: '/posts',
+    method: 'GET',
+  })
+  return posts
+}
+
+export { getPostsById, getAllPosts }

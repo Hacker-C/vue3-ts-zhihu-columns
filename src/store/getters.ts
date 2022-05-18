@@ -1,8 +1,11 @@
+import { GlobalProps } from './index'
+import { ColumnProps } from '@/dtypes'
+
 const getters = {
-  // getColumnById:
-  //   (state: GlobalProps) =>
-  //   (columnId: number): ColumnProps | undefined =>
-  //     state.columns.find(column => column.id === columnId),
+  getColumnById:
+    (state: GlobalProps) =>
+    (columnId: number): ColumnProps | undefined =>
+      state.columns.find(column => column.id === columnId),
   // getPostById:
   //   (state: GlobalProps) =>
   //   (columnId: number): PostProps[] | undefined => {
