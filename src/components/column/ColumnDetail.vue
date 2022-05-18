@@ -46,14 +46,12 @@ export default defineComponent({
     const store = useStore<GlobalProps>()
     const currentColumnId = +route.params.id
     const column: Ref<ColumnProps | null> = ref(null)
-    // const postList: Ref<PostProps[]> = ref([])
     // TIP 使用计算数学获取 getters
     onMounted(async () => {
       const columnResult = await getColumnById(currentColumnId)
       column.value = columnResult.data
       store.dispatch('getPosts', currentColumnId)
     })
-    console.log(11)
     const postList = computed(() => store.state.posts)
     return {
       route,

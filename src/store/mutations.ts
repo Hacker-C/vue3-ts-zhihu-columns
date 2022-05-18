@@ -1,5 +1,5 @@
 import types from './mutations-types'
-import { GlobalProps } from '@/dtypes'
+import { GlobalProps } from './index'
 import { PostProps } from '@/dtypes'
 export default {
   [types.LOGIN](state: GlobalProps): void {
@@ -13,5 +13,8 @@ export default {
   },
   [types.INIT_POSTS](state: GlobalProps, posts: PostProps[]): void {
     state.posts = posts
+  },
+  [types.ADD_LOADING](state: GlobalProps, v: number): void {
+    if (state.progressValue <= 100) state.progressValue += v
   },
 }

@@ -28,6 +28,11 @@ export default defineComponent({
     const columns: Ref<ColumnProps[]> = ref([])
     onBeforeMount(async () => {
       const res = await getAllColumns()
+      res.data.forEach(obj => {
+        if (!obj.avatar || obj.avatar?.length === 0) {
+          obj.avatar = require('@/assets/column.png')
+        }
+      })
       columns.value = res.data
     })
     return {

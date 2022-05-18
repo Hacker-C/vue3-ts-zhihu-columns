@@ -9,7 +9,7 @@ export interface UserProps {
 }
 
 export interface GlobalProps {
-  // columns: ColumnProps[]
+  loading: boolean
   posts: PostProps[]
   user: UserProps
 }
